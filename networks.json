@@ -193,12 +193,12 @@
   },
   "xlayer-mainnet": {
     "PoolManager": {
-      "address": "0x360E68faCcca8cA495c1B759Fd9EEe466db9FB32",
-      "startBlock": 46460144
+      "address": "0x2bb8ee40f88e2917b8794398a00d98962b27b3ff",
+      "startBlock": 75516767
     },
     "PositionManager": {
-      "address": "0xcF1EAFC6928dC385A342E7C6491d371d2871458b",
-      "startBlock": 46106401
+      "address": "0x48b02785c1218829f6c15aaa69b24698208ad776",
+      "startBlock": 75516783
     }
   },
   "megaeth-mainnet": {

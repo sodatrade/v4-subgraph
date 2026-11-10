@@ -46,3 +46,11 @@ This will create a new `subgraph.yaml` file based on the network-specific config
 - Preserve all the necessary event handlers and ABI configurations
 
 Available networks can be found in `networks.json`.
+
+### SodaDEX X Layer production
+
+Generate the chain 196 manifest with `yarn generate-subgraph xlayer-mainnet` and run
+`yarn build`. Deploy the manifest to the independent SodaDEX Graph Node as
+`sodadex/v4`. The X Layer settings point to the production SodaFlow PoolManager
+and PositionManager. The native OKB/USDT0 price reference is scoped to that
+PoolManager and only exists in the index after the corresponding pool is initialized.

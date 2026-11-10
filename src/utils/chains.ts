@@ -670,15 +670,15 @@ export function getSubgraphConfig(): SubgraphConfig {
     const DAI = '0xC5015b9d9161Dca7e18e32f6f25C4aD850731Fd4'.toLowerCase()
     const xETH = '0xE7B000003A45145decf8a28FC755aD5eC5EA025A'.toLowerCase()
     const xSOL = '0x505000008DE8748DBd4422ff4687a4FC9bEba15b'.toLowerCase()
-    const nativeToUSDT0 = '0xf8096cd5528d825ddeb799c32ea793e5952b72b91f016ed19314981fcd142cb8'.toLowerCase()
+    const nativeToUSDT0 = '0x53cb92e331a3a68aa99146cbe82ff6980856d48ae4bbb181172b32156bfe5a38'.toLowerCase()
 
     return {
-      poolManagerAddress: '0x360E68faCcca8cA495c1B759Fd9EEe466db9FB32'.toLowerCase(),
+      poolManagerAddress: '0x2bb8ee40f88e2917b8794398a00d98962b27b3ff'.toLowerCase(),
       stablecoinWrappedNativePoolId: nativeToUSDT0,
       stablecoinIsToken0: false,
       wrappedNativeAddress: WOKB,
       minimumNativeLocked: BigDecimal.fromString('25'),
-      stablecoinAddresses: [USDC, USDT, DAI],
+      stablecoinAddresses: [USDC, USDT, USDT0, DAI],
       whitelistTokens: [WOKB, WETH, USDT, USDT0, USDC, USDCe, WBTC, DAI, xETH, xSOL],
       tokenOverrides: [],
       poolsToSkip: [],
