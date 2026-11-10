@@ -1,4 +1,4 @@
-import { Address, BigInt, log } from '@graphprotocol/graph-ts'
+import { Address, BigInt, dataSource, log } from '@graphprotocol/graph-ts'
 
 import { AggregatorHook } from '../types/PoolManager/AggregatorHook'
 import { ModifyLiquidity as ModifyLiquidityEvent } from '../types/PoolManager/PoolManager'
@@ -16,8 +16,13 @@ import {
 import { getAmount0, getAmount1 } from '../utils/liquidityMath/liquidityAmounts'
 import { calculateAmountUSD } from '../utils/pricing'
 import { createTick } from '../utils/tick'
+import { updatePositionLiquidity } from './positionLiquidity'
 
 export function handleModifyLiquidity(event: ModifyLiquidityEvent): void {
+  const positionManager = dataSource.context().get('positionManager')
+  if (positionManager !== null) {
+    updatePositionLiquidity(event, positionManager.toString())
+  }
   handleModifyLiquidityHelper(event)
 }
 

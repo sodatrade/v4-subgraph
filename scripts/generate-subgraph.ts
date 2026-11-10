@@ -24,7 +24,7 @@ const contractTemplates = {
       apiVersion: '0.0.7',
       language: 'wasm/assemblyscript',
       file: './src/mappings/poolManager.mapping.ts',
-      entities: ['Pool', 'Token'],
+      entities: ['Pool', 'Token', 'Position', 'PositionSnapshot'],
       abis: [
         { name: 'ERC20', file: './abis/ERC20.json' },
         { name: 'ERC20SymbolBytes', file: './abis/ERC20SymbolBytes.json' },
@@ -55,7 +55,7 @@ const contractTemplates = {
       apiVersion: '0.0.7',
       language: 'wasm/assemblyscript',
       file: './src/mappings/positionManager.mapping.ts',
-      entities: ['Position'],
+      entities: ['Position', 'PositionSnapshot'],
       abis: [{ name: 'PositionManager', file: './abis/PositionManager.json' }],
       eventHandlers: [
         {
@@ -154,6 +154,8 @@ function generateSubgraphConfig(network: string, networkConfig: NetworkConfig): 
   // For each contract in the network
   Object.entries(networkConfig).forEach(([contractName, contractConfig]) => {
     if (contractTemplates[contractName]) {
+      const positionManager = networkConfig.PositionManager
+      const trackSodaDexPositions = network === 'xlayer-mainnet' && contractName === 'PoolManager' && positionManager
       const dataSource = {
         source: {
           abi: contractName,
@@ -163,6 +165,9 @@ function generateSubgraphConfig(network: string, networkConfig: NetworkConfig): 
         name: contractName,
         network,
         ...contractTemplates[contractName],
+        ...(trackSodaDexPositions
+          ? { context: { positionManager: { type: 'String', data: positionManager.address.toLowerCase() } } }
+          : {}),
       }
       dataSources.push(dataSource)
     }

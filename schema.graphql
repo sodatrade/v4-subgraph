@@ -422,6 +422,11 @@ type Position @entity(immutable: false) {
   tokenId: BigInt!
   # address of current owner
   owner: String!
+  # Present for positions indexed from the production SodaFlow manager.
+  pool: Pool
+  tickLower: BigInt
+  tickUpper: BigInt
+  liquidity: BigInt
   # the EOA that minted the position
   origin: String!
   # created time
@@ -432,6 +437,19 @@ type Position @entity(immutable: false) {
   unsubscriptions: [Unsubscribe!]! @derivedFrom(field: "position")
   # transfer events
   transfers: [Transfer!]! @derivedFrom(field: "position")
+}
+
+# Final position state after all relevant events at the block.
+type PositionSnapshot @entity(immutable: false) {
+  id: ID!
+  position: Position!
+  pool: Pool!
+  owner: String!
+  tickLower: BigInt!
+  tickUpper: BigInt!
+  liquidity: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
 }
 
 type Subscribe @entity(immutable: true) {

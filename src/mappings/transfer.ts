@@ -2,6 +2,7 @@ import { Transfer as TransferEvent } from '../types/PositionManager/PositionMana
 import { Position, Transfer } from '../types/schema'
 import { loadTransaction } from '../utils'
 import { eventId, positionId } from '../utils/id'
+import { savePositionSnapshot } from './positionLiquidity'
 
 // The subgraph handler must have this signature to be able to handle events,
 // however, we invoke a helper in order to inject dependencies for unit tests.
@@ -37,5 +38,6 @@ export function handleTransferHelper(event: TransferEvent): void {
   transfer.position = position.id
 
   position.save()
+  savePositionSnapshot(position, event.block)
   transfer.save()
 }

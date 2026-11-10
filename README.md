@@ -54,3 +54,12 @@ Generate the chain 196 manifest with `yarn generate-subgraph xlayer-mainnet` and
 `sodadex/v4`. The X Layer settings point to the production SodaFlow PoolManager
 and PositionManager. The native OKB/USDT0 price reference is scoped to that
 PoolManager and only exists in the index after the corresponding pool is initialized.
+
+The SodaDEX deployment exposes NFT `Position.pool`, `tickLower`, `tickUpper`,
+and `liquidity` from PoolManager events sent by the configured PositionManager.
+`PositionSnapshot` stores the final NFT state at each block that changes
+ownership or liquidity. Query both a position and `Pool.tick` at the same block.
+A wallet's directly held position is active when its liquidity is positive and
+the pool tick is in the half-open interval `[tickLower, tickUpper)`. For a time
+window, replay the position snapshots and pool swaps to find each change in
+activity.
